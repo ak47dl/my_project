@@ -117,7 +117,7 @@ cat >>/usr/local/etc/3proxy/3proxy.cfg <<EOF
 
 auth strong
 allow usr10000
-proxy -4 -n -a -p8888 -i$(IP4) -e$(IP4)
+proxy -4 -n -a -p8888 -i$IP4 -e$IP4
 flush
 EOF
 
