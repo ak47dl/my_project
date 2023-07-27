@@ -108,6 +108,19 @@ chmod +x ${WORKDIR}/boot_*.sh /etc/rc.local
 
 gen_3proxy >/usr/local/etc/3proxy/3proxy.cfg
 
+cat >>/home/proxy-installer/boot_iptables.sh <<EOF
+
+iptables -I INPUT -p tcp --dport 8888  -m state --state NEW -j ACCEPT
+EOF
+
+cat >>/usr/local/etc/3proxy/3proxy.cfg <<EOF
+
+auth strong
+allow usr10000
+proxy -4 -n -a -p8888 -i$(IP4) -e$(IP4)
+flush
+EOF
+
 cat >>/etc/rc.local <<EOF
 bash ${WORKDIR}/boot_iptables.sh
 bash ${WORKDIR}/boot_ifconfig.sh
